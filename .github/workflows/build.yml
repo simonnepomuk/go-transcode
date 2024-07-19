@@ -17,4 +17,4 @@ jobs:
       - name: Install dependencies
         run: go get .
       - name: Build
-        run: env GOOS=${{matrix.os}} GOARCH=${{arch}} go build -o go-transcode-${{os}}-${{arch}}
+        run: env GOOS=${{matrix.os}} GOARCH=${{matrix.arch}} go build -o go-transcode-${{matrix.os}}-${{matrix.arch}}
