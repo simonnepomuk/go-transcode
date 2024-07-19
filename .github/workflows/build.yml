@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [darwin, linux, windows]
+        os: [darwin]
         arch: [amd64]
     steps:
       - name: Checkout
@@ -18,3 +18,11 @@ jobs:
         run: go get .
       - name: Build
         run: env GOOS=${{matrix.os}} GOARCH=${{matrix.arch}} go build -o go-transcode-${{matrix.os}}-${{matrix.arch}}
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: go-transcode-${{matrix.os}}-${{matrix.arch}}
+          asset_name: go-transcode-${{matrix.os}}-${{matrix.arch}}
+          tag: ${{ github.ref }}
+          overwrite: true
